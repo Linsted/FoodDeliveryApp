@@ -1,5 +1,5 @@
 import { MyContext } from 'components/App';
-import { useEffect } from 'react';
+
 import { useContext } from 'react';
 
 export const GoodsItem = ({ product, shopId }) => {
