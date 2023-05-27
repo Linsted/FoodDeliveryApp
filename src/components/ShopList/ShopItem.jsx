@@ -8,9 +8,6 @@ export const ShopItem = ({ shop }) => {
   const { activeShop } = useContext(MyContext);
   const [isActive, setIsActive] = useState(true);
 
-  console.log(shop._id);
-  console.log(activeShop);
-  console.log(isActive);
   useEffect(() => {
     if (activeShop === '' || shop._id === activeShop) {
       setIsActive(true);
@@ -23,7 +20,7 @@ export const ShopItem = ({ shop }) => {
       {isActive ? (
         <Link to={shop._id}>{shop.name}</Link>
       ) : (
-        <div to={shop._id}>{shop.name}</div>
+        <div>{shop.name}</div>
       )}
     </li>
   );

@@ -17,7 +17,7 @@ export const App = () => {
     JSON.parse(localStorage.getItem('cart')) || []
   );
   const [activeShop, setActiveShop] = useState('');
-  console.log(activeShop);
+
   const contextValue = { shops, cart, setCart, setActiveShop, activeShop };
 
   useEffect(() => {
