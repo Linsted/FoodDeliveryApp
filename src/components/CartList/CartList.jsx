@@ -3,48 +3,47 @@ import { MyContext } from 'components/App';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useContext } from 'react';
+import { CartItem } from './CartItem';
+import { OrderForm } from 'components/OrderForm/OrderForm';
 
 export const CartList = () => {
-  const [shop, setShop] = useState({});
-  const [productQuantities, setProductQuantities] = useState({});
-  const { cart } = useContext(MyContext);
-
-  useEffect(() => {
-    if (cart.length !== 0) {
-      getShopById(cart[0].shopId);
-    }
-  }, [cart, cart.length]);
-
-  const getShopById = async id => {
-    try {
-      const data = await fetchById(id);
-      setShop(data);
-    } catch (error) {
-      console.log(error);
-    }
+  const { cart, setCart } = useContext(MyContext);
+  const getTotalPrice = () => {
+    let totalPrice = 0;
+    cart.forEach(item => {
+      totalPrice += item.product.price * item.quantity;
+    });
+    return totalPrice.toFixed(2);
   };
-  let productsInCartId = [];
-
-  let productsInCart;
   console.log(cart);
+  const handleSubmit = event => {
+    event.preventDefault();
 
-  //   console.log(productsInCartId);
-  if (cart.length !== 0 && shop.products !== undefined) {
-    cart.forEach(el => productsInCartId.push(el.productId));
-    // console.log(shop.products);
-    productsInCart = shop.products.filter(element =>
-      productsInCartId.includes(element.id)
-    );
-  }
+    const email = event.target.email.value;
+    const phoneNumber = event.target.phoneNumber.value;
+    const address = event.target.address.value;
 
-  //   console.log(productsInCart);
+    const body = {
+      shop: cart[0].shopId,
+      products: cart,
+      email,
+      phoneNumber,
+      address,
+    };
+
+    console.log(body);
+    event.target.reset();
+    setCart([]);
+  };
 
   return (
     <>
+      <OrderForm handleSubmit={handleSubmit} />
       <ul>
-        {productsInCart &&
-          productsInCart.map(el => <li key={el._id}>{el.name}</li>)}
+        {cart.length !== 0 &&
+          cart.map(el => <CartItem key={el.productId} product={el} />)}
       </ul>
+      <p>Total Price: {getTotalPrice()}</p>
     </>
   );
 };

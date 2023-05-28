@@ -18,7 +18,13 @@ export const App = () => {
   );
   const [activeShop, setActiveShop] = useState('');
 
-  const contextValue = { shops, cart, setCart, setActiveShop, activeShop };
+  const contextValue = {
+    shops,
+    cart,
+    setCart,
+    setActiveShop,
+    activeShop,
+  };
 
   useEffect(() => {
     getShops();
