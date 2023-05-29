@@ -1,6 +1,13 @@
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { MyContext } from 'components/App';
+import {
+  CartItemStyled,
+  CartItemNameStyled,
+  CartItemButtonStyled,
+  CartItemQuantityStyled,
+  CartItemTotalPriceStyled,
+} from './CartList.Sstyled';
 
 export const CartItem = ({ product }) => {
   const { id, name, price } = product.product;
@@ -42,13 +49,19 @@ export const CartItem = ({ product }) => {
   };
 
   return (
-    <li>
-      <p>{name}</p>
-      <button onClick={() => handleDecrement(id)}>-</button>
-      <span>{product.quantity}</span>
-      <button onClick={() => handleIncrement(id)}>+</button>
-      <span>{(price * product.quantity).toFixed(2)}</span>
-    </li>
+    <CartItemStyled>
+      <CartItemNameStyled>{name}</CartItemNameStyled>
+      <CartItemButtonStyled type="button" onClick={() => handleDecrement(id)}>
+        -
+      </CartItemButtonStyled>
+      <CartItemQuantityStyled>{product.quantity}</CartItemQuantityStyled>
+      <CartItemButtonStyled type="button" onClick={() => handleIncrement(id)}>
+        +
+      </CartItemButtonStyled>
+      <CartItemTotalPriceStyled>
+        {(price * product.quantity).toFixed(2)}
+      </CartItemTotalPriceStyled>
+    </CartItemStyled>
   );
 };
 

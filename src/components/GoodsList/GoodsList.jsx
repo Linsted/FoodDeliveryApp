@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { GoodsItem } from './GoodsItem';
+import { GoodsListContainerStyled } from './GoodsList.styled';
 
 export const GoodsList = () => {
   const { shopId } = useParams();
@@ -23,11 +24,11 @@ export const GoodsList = () => {
   };
 
   return (
-    <ul>
+    <GoodsListContainerStyled>
       {products &&
         products.map(product => (
           <GoodsItem key={product.id} product={product} shopId={shopId} />
         ))}
-    </ul>
+    </GoodsListContainerStyled>
   );
 };

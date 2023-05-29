@@ -1,6 +1,14 @@
 import { MyContext } from 'components/App';
 import toast, { Toaster } from 'react-hot-toast';
+import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
+import {
+  GoodsItemContainerStyled,
+  GoodsItemImageStyled,
+  GoodsItemNameStyled,
+  GoodsItemPriceStyled,
+  GoodsItemButtonStyled,
+} from './GoodsList.styled';
 
 export const GoodsItem = ({ product, shopId }) => {
   const { setCart, cart, setActiveShop, activeShop } = useContext(MyContext);
@@ -27,22 +35,32 @@ export const GoodsItem = ({ product, shopId }) => {
   return (
     <>
       <Toaster />
-      <li>
-        <img
+      <GoodsItemContainerStyled>
+        <GoodsItemImageStyled
           style={{ width: '300px' }}
           src={product.picture}
           alt={product.name}
         />
-        <p>{product.name}</p>
-        <span>{product.price}</span>
-        <button
+        <GoodsItemNameStyled>{product.name}</GoodsItemNameStyled>
+        <GoodsItemPriceStyled>{product.price}</GoodsItemPriceStyled>
+        <GoodsItemButtonStyled
           onClick={() => handleClick(shopId, product.id)}
           type="button"
           disabled={isAddedToCart}
         >
           {isAddedToCart ? 'Added to cart' : 'Add to cart'}
-        </button>
-      </li>
+        </GoodsItemButtonStyled>
+      </GoodsItemContainerStyled>
     </>
   );
+};
+
+GoodsItem.propTypes = {
+  product: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    picture: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
+  shopId: PropTypes.string.isRequired,
 };

@@ -1,13 +1,20 @@
 import { MyContext } from 'components/App';
 import { useContext } from 'react';
+import PropTypes from 'prop-types';
+import {
+  FormContainerStyled,
+  FormLabelStyled,
+  FormInputStyled,
+  FormButtonStyled,
+} from './OrderForm.styled';
 
 export const OrderForm = ({ handleSubmit }) => {
   const { activeShop } = useContext(MyContext);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="name">Name:</label>
-      <input
+    <FormContainerStyled onSubmit={handleSubmit}>
+      <FormLabelStyled htmlFor="name">Name:</FormLabelStyled>
+      <FormInputStyled
         type="text"
         id="name"
         name="name"
@@ -15,18 +22,27 @@ export const OrderForm = ({ handleSubmit }) => {
         required
       />
 
-      <label htmlFor="email">Email:</label>
-      <input type="email" id="email" name="email" required />
+      <FormLabelStyled htmlFor="email">Email:</FormLabelStyled>
+      <FormInputStyled type="email" id="email" name="email" required />
 
-      <label htmlFor="address">Address:</label>
-      <input type="text" id="address" name="address" required />
+      <FormLabelStyled htmlFor="address">Address:</FormLabelStyled>
+      <FormInputStyled type="text" id="address" name="address" required />
 
-      <label htmlFor="phoneNumber">Phone:</label>
-      <input type="tel" id="phoneNumber" name="phoneNumber" required />
+      <FormLabelStyled htmlFor="phoneNumber">Phone:</FormLabelStyled>
+      <FormInputStyled
+        type="tel"
+        id="phoneNumber"
+        name="phoneNumber"
+        required
+      />
 
-      <button disabled={activeShop === ''} type="submit">
+      <FormButtonStyled disabled={activeShop === ''} type="submit">
         Submit
-      </button>
-    </form>
+      </FormButtonStyled>
+    </FormContainerStyled>
   );
+};
+
+OrderForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
 };

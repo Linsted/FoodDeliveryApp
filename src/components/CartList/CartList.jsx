@@ -4,6 +4,12 @@ import { CartItem } from './CartItem';
 import { OrderForm } from 'components/OrderForm/OrderForm';
 import { addOrder } from 'API/api';
 import { Toaster, toast } from 'react-hot-toast';
+import {
+  CartListContainerStyled,
+  TotalPriceContainerStyled,
+  TotalPriceLabelStyled,
+  TotalPriceValueStyled,
+} from './CartList.Sstyled';
 
 export const CartList = () => {
   const { cart, setCart, setActiveShop } = useContext(MyContext);
@@ -47,11 +53,14 @@ export const CartList = () => {
     <>
       <Toaster />
       <OrderForm handleSubmit={handleSubmit} />
-      <ul>
+      <CartListContainerStyled>
         {cart.length !== 0 &&
           cart.map(el => <CartItem key={el.productId} product={el} />)}
-      </ul>
-      <p>Total Price: {getTotalPrice()}</p>
+      </CartListContainerStyled>
+      <TotalPriceContainerStyled>
+        <TotalPriceLabelStyled>Total Price:</TotalPriceLabelStyled>
+        <TotalPriceValueStyled>{getTotalPrice()}</TotalPriceValueStyled>
+      </TotalPriceContainerStyled>
     </>
   );
 };

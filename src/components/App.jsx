@@ -5,6 +5,7 @@ import { createContext } from 'react';
 import { useState } from 'react';
 import { fetchShops } from 'API/api';
 import { GoodsList } from './GoodsList/GoodsList';
+import { Puff } from 'react-loader-spinner';
 
 export const MyContext = createContext();
 
@@ -17,6 +18,7 @@ export const App = () => {
     JSON.parse(localStorage.getItem('cart')) || []
   );
   const [activeShop, setActiveShop] = useState('');
+  const [showSpinner, setShowSpinner] = useState(false);
 
   const contextValue = {
     shops,
@@ -35,19 +37,23 @@ export const App = () => {
   }, [cart.length]);
 
   const getShops = async () => {
+    setShowSpinner(true);
     try {
       const data = await fetchShops();
       if (data === null) {
-        // toast.error(errorText, { duration: 5000 });
         console.log('Data is null');
+        setShowSpinner(false);
         return;
       }
       setShops(data);
+
+      setShowSpinner(false);
     } catch (error) {
+      setShowSpinner(false);
       console.log(error.message);
     }
   };
-
+  console.log(shops);
   return (
     <MyContext.Provider value={contextValue}>
       <Layout>
@@ -58,6 +64,16 @@ export const App = () => {
           <Route path="/cart" element={<Cart />} />
         </Routes>
       </Layout>
+      <Puff
+        height="80"
+        width="80"
+        radius={1}
+        color="#4fa94d"
+        ariaLabel="puff-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        visible={showSpinner}
+      />
     </MyContext.Provider>
   );
 };

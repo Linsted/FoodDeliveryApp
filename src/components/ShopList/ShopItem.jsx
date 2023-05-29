@@ -1,8 +1,10 @@
 import { MyContext } from 'components/App';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+
+import { ShopItemContainerStyled, ShopLink, ShopName } from './ShopList.styled';
 
 export const ShopItem = ({ shop }) => {
   const { activeShop } = useContext(MyContext);
@@ -16,12 +18,19 @@ export const ShopItem = ({ shop }) => {
     }
   }, [activeShop, shop._id]);
   return (
-    <li>
+    <ShopItemContainerStyled>
       {isActive ? (
-        <Link to={shop._id}>{shop.name}</Link>
+        <ShopLink to={shop._id}>{shop.name} </ShopLink>
       ) : (
-        <div>{shop.name}</div>
+        <ShopName>{shop.name}</ShopName>
       )}
-    </li>
+    </ShopItemContainerStyled>
   );
+};
+
+ShopItem.propTypes = {
+  shop: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+  }).isRequired,
 };
