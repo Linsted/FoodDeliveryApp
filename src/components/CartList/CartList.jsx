@@ -9,6 +9,7 @@ import {
   TotalPriceContainerStyled,
   TotalPriceLabelStyled,
   TotalPriceValueStyled,
+  ClearCartStyled,
 } from './CartList.Sstyled';
 
 export const CartList = () => {
@@ -19,6 +20,13 @@ export const CartList = () => {
       totalPrice += item.product.price * item.quantity;
     });
     return totalPrice.toFixed(2);
+  };
+
+  const handleClearClick = () => {
+    setCart([]);
+    setActiveShop('');
+    localStorage.setItem('cart', JSON.stringify([]));
+    localStorage.clear();
   };
 
   const handleSubmit = async event => {
@@ -36,8 +44,8 @@ export const CartList = () => {
       address,
     };
 
-    const smt = await addOrder(body);
-    if (!smt) {
+    const data = await addOrder(body);
+    if (!data) {
       toast.error('Sorry, there was an error');
       return;
     }
@@ -61,6 +69,11 @@ export const CartList = () => {
         <TotalPriceLabelStyled>Total Price:</TotalPriceLabelStyled>
         <TotalPriceValueStyled>{getTotalPrice()}</TotalPriceValueStyled>
       </TotalPriceContainerStyled>
+      {cart.length > 0 && (
+        <ClearCartStyled onClick={handleClearClick} type="button">
+          Clear cart
+        </ClearCartStyled>
+      )}
     </>
   );
 };

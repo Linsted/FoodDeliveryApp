@@ -53,3 +53,14 @@ export const TotalPriceValueStyled = styled.span`
   font-weight: bold;
   color: #4fa94d;
 `;
+
+export const ClearCartStyled = styled.button`
+  margin-top: 20px;
+  background-color: blue;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  float: right;
+`;
