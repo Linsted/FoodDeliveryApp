@@ -3,6 +3,8 @@
 This is a web application for food delivery, where users can browse different
 shops, view their menus, add items to the cart, and place orders.
 
+Link to Web-page - linsted.github.io/FoodDeliveryApp/
+
 ## Features
 
 - Browse and select from a variety of food shops
