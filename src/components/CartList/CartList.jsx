@@ -1,13 +1,11 @@
-import { fetchById } from 'API/api';
 import { MyContext } from 'components/App';
-import { useState } from 'react';
-import { useEffect } from 'react';
+
 import { useContext } from 'react';
 import { CartItem } from './CartItem';
 import { OrderForm } from 'components/OrderForm/OrderForm';
 
 export const CartList = () => {
-  const { cart, setCart } = useContext(MyContext);
+  const { cart, setCart, setActiveShop } = useContext(MyContext);
   const getTotalPrice = () => {
     let totalPrice = 0;
     cart.forEach(item => {
@@ -34,6 +32,9 @@ export const CartList = () => {
     console.log(body);
     event.target.reset();
     setCart([]);
+    setActiveShop('');
+    localStorage.setItem('cart', JSON.stringify([]));
+    localStorage.clear();
   };
 
   return (

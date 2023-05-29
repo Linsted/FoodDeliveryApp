@@ -29,10 +29,10 @@ export const App = () => {
   useEffect(() => {
     getShops();
     const shop = JSON.parse(localStorage.getItem('cart'));
-    if (shop) {
+    if (shop && cart.length !== 0) {
       setActiveShop(shop[0].shopId);
     }
-  }, []);
+  }, [cart.length]);
 
   const getShops = async () => {
     try {

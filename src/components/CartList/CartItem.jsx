@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { MyContext } from 'components/App';
 
@@ -50,4 +50,15 @@ export const CartItem = ({ product }) => {
       <span>{(price * product.quantity).toFixed(2)}</span>
     </li>
   );
+};
+
+CartItem.propTypes = {
+  product: PropTypes.shape({
+    product: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+    }).isRequired,
+    quantity: PropTypes.number.isRequired,
+  }).isRequired,
 };
