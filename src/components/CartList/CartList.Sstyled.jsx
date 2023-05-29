@@ -64,3 +64,13 @@ export const ClearCartStyled = styled.button`
   cursor: pointer;
   float: right;
 `;
+
+export const DeleteButtonStyled = styled.button`
+  margin-left: 75vw;
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+`;

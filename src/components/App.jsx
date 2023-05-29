@@ -53,7 +53,7 @@ export const App = () => {
       console.log(error.message);
     }
   };
-  console.log(shops);
+
   return (
     <MyContext.Provider value={contextValue}>
       <Layout>

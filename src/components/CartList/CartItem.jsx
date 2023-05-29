@@ -7,11 +7,12 @@ import {
   CartItemButtonStyled,
   CartItemQuantityStyled,
   CartItemTotalPriceStyled,
+  DeleteButtonStyled,
 } from './CartList.Sstyled';
 
 export const CartItem = ({ product }) => {
   const { id, name, price } = product.product;
-  const { setCart } = useContext(MyContext);
+  const { setCart, cart, setActiveShop } = useContext(MyContext);
 
   const handleDecrement = id => {
     setCart(prevCart => {
@@ -27,6 +28,21 @@ export const CartItem = ({ product }) => {
         }
         return item;
       });
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+      return updatedCart;
+    });
+  };
+
+  const handleDeleteItem = () => {
+    if (cart.length < 2) {
+      localStorage.clear();
+      setCart([]);
+      setActiveShop('');
+      return;
+    }
+
+    setCart(prevCart => {
+      const updatedCart = prevCart.filter(item => item.productId !== id);
       localStorage.setItem('cart', JSON.stringify(updatedCart));
       return updatedCart;
     });
@@ -60,6 +76,9 @@ export const CartItem = ({ product }) => {
       </CartItemButtonStyled>
       <CartItemTotalPriceStyled>
         {(price * product.quantity).toFixed(2)}
+        <DeleteButtonStyled type="button" onClick={handleDeleteItem}>
+          Delete
+        </DeleteButtonStyled>
       </CartItemTotalPriceStyled>
     </CartItemStyled>
   );
