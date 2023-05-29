@@ -1,8 +1,9 @@
 import { MyContext } from 'components/App';
-
 import { useContext } from 'react';
 import { CartItem } from './CartItem';
 import { OrderForm } from 'components/OrderForm/OrderForm';
+import { addOrder } from 'API/api';
+import { Toaster, toast } from 'react-hot-toast';
 
 export const CartList = () => {
   const { cart, setCart, setActiveShop } = useContext(MyContext);
@@ -13,8 +14,8 @@ export const CartList = () => {
     });
     return totalPrice.toFixed(2);
   };
-  console.log(cart);
-  const handleSubmit = event => {
+
+  const handleSubmit = async event => {
     event.preventDefault();
 
     const email = event.target.email.value;
@@ -29,7 +30,12 @@ export const CartList = () => {
       address,
     };
 
-    console.log(body);
+    const smt = await addOrder(body);
+    if (!smt) {
+      toast.error('Sorry, there was an error');
+      return;
+    }
+    toast.success('Thank you for your order');
     event.target.reset();
     setCart([]);
     setActiveShop('');
@@ -39,6 +45,7 @@ export const CartList = () => {
 
   return (
     <>
+      <Toaster />
       <OrderForm handleSubmit={handleSubmit} />
       <ul>
         {cart.length !== 0 &&

@@ -8,8 +8,6 @@ export const GoodsItem = ({ product, shopId }) => {
     JSON.parse(localStorage.getItem(`isActive_${product.id}`)) || false
   );
 
-  console.log(activeShop.length);
-
   const handleClick = (shopId, productId) => {
     if (activeShop.length > 2 && activeShop !== shopId) {
       return toast.error('Sorry, you can`t add item from this store.');
